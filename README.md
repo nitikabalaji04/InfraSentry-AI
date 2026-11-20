@@ -49,3 +49,34 @@ The project requirements, features, modules, and development priorities have bee
 - Day 4: Requirements analysis and module planning completed.
 
 For detailed requirements, refer to [Requirements Analysis](docs/requirements-analysis.md).
+
+## Phase 1 – Day 5: Initial Implementation
+
+### Module Developed
+File Upload and Validation
+
+### Implemented Features
+- Upload Dockerfile and Terraform (.tf) configuration files.
+- Validate supported file formats.
+- Check uploaded file size (maximum 2 MB).
+- Reject empty files.
+- Display appropriate success and error responses.
+
+### Technology Used
+- Python
+- FastAPI
+- Python Multipart
+- Uvicorn
+
+### Testing Results
+| Test Case | Result |
+|---|---|
+| Dockerfile upload | Passed |
+| Terraform upload | Passed |
+| Unsupported file rejection | Passed |
+
+### Development Progress
+- Day 1: Environment setup completed.
+- Day 2: Git and GitHub setup completed.
+- Day 4: Requirements analysis completed.
+- Day 5: File Upload and Validation module implemented and tested.
