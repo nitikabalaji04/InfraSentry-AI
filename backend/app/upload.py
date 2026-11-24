@@ -1,7 +1,7 @@
-
 from fastapi import APIRouter, UploadFile, File, HTTPException
 from pathlib import Path
 from uuid import uuid4
+from .scanner import scan_dockerfile, scan_terraform
 
 router = APIRouter()
 
@@ -77,8 +77,18 @@ async def upload_config(file: UploadFile = File(...)):
             detail="Unable to save the uploaded file."
         )
 
+    # Decode the uploaded file for security analysis
+    content = b"".join(chunks).decode("utf-8", errors="replace")
+
+    # Run the appropriate security scanner
+    if clean_filename.lower() == "dockerfile":
+        findings = scan_dockerfile(content)
+    else:
+        findings = scan_terraform(content)
+
+    # Return upload and security scan results
     return {
-        "message": "File uploaded, validated, and stored successfully!",
+        "message": "File uploaded, validated, and scanned successfully!",
         "original_filename": clean_filename,
         "saved_filename": saved_filename,
         "size_bytes": total_size,
@@ -86,5 +96,15 @@ async def upload_config(file: UploadFile = File(...)):
             "Dockerfile"
             if clean_filename.lower() == "dockerfile"
             else "Terraform"
-        )
+        ),
+        "security_scan": {
+            "total_findings": len(findings),
+            "high_risk": sum(
+                f["severity"] == "HIGH" for f in findings
+            ),
+            "medium_risk": sum(
+                f["severity"] == "MEDIUM" for f in findings
+            ),
+            "findings": findings
+        }
     }

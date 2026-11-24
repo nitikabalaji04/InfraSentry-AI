@@ -109,3 +109,56 @@ File Upload and Validation
 
 ### Day 6 Outcome
 The file upload module now validates and stores supported infrastructure configuration files. It is ready for integration with the infrastructure security scanning module in the next development phase.
+
+## Day 8 - Infrastructure Security Scanner
+
+### Features Implemented
+
+- Developed a rule-based security scanning module.
+- Integrated security scanning with the existing file upload API.
+- Added security checks for Dockerfile and Terraform configurations.
+- Implemented severity classification and security recommendations.
+- Preserved existing file validation and unique file storage.
+
+### Dockerfile Security Checks
+
+- Possible root user execution.
+- Usage of the latest image tag.
+- Potential hardcoded secrets.
+
+### Terraform Security Checks
+
+- Unrestricted network access.
+- Potential hardcoded credentials.
+- Disabled encryption.
+
+### Testing Results
+
+| Test Case | Result |
+|---|---|
+| Existing Dockerfile | 1 high-risk finding |
+| Existing Terraform | 0 findings |
+| Insecure Dockerfile | 2 high-risk and 1 medium-risk findings |
+| Insecure Terraform | 3 high-risk findings |
+| Unsupported file | Successfully rejected |
+
+### Challenges Encountered
+
+An indentation error in the upload API initially caused
+Dockerfile uploads to return a null response. The issue
+was resolved by moving the return statement outside
+the conditional block.
+
+### Current Limitations
+
+The scanner uses preliminary rule-based detection.
+It is not a comprehensive vulnerability scanner and
+may produce false positives or miss security issues.
+
+### Future Improvements
+
+- Expand security detection rules.
+- Integrate professional infrastructure scanning tools.
+- Implement security risk scoring.
+- Develop AI-powered security explanations.
+- Build an interactive security dashboard.
