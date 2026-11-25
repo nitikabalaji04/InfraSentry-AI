@@ -17,3 +17,12 @@ venv/
 .DS_Store
 Thumbs.db
 uploads/
+
+# SQLite database files
+infrasentry.db
+infrasentry.db-journal
+infrasentry.db-wal
+infrasentry.db-shm
+
+# Uploaded configuration files
+uploads/

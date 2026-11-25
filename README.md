@@ -162,3 +162,66 @@ may produce false positives or miss security issues.
 - Implement security risk scoring.
 - Develop AI-powered security explanations.
 - Build an interactive security dashboard.
+
+## Day 9 - Database Design and Integration
+
+### Database Technology
+SQLite was selected because it is lightweight, easy to
+integrate with Python, and does not require a separate
+database server.
+
+### Implementation Completed
+
+- Designed a relational database schema.
+- Established SQLite database connectivity.
+- Created scans and findings tables.
+- Implemented a one-to-many relationship.
+- Integrated database storage with the security scanner.
+- Implemented all four CRUD operations.
+- Tested CRUD API endpoints using Swagger UI.
+- Configured foreign keys and cascade deletion.
+- Excluded local database files using .gitignore.
+
+### Database Tables
+
+| Table | Description |
+|---|---|
+| scans | Stores scan reports and risk summaries |
+| findings | Stores individual security findings and recommendations |
+
+### API Endpoints
+
+| Method | Endpoint | Description |
+|---|---|---|
+| POST | /api/upload | Upload, scan and store results |
+| GET | /api/scans | Retrieve all scan reports |
+| GET | /api/scans/{scan_id} | Retrieve individual scan details |
+| PUT | /api/scans/{scan_id} | Update the displayed filename |
+| DELETE | /api/scans/{scan_id} | Delete a scan and its associated findings |
+
+### Database Security
+
+- Parameterized SQL queries
+- Foreign key constraints
+- Transaction management
+- Automatic database connection closure
+- Local database files excluded from GitHub
+
+### Challenges Faced
+
+- Encountered a syntax error during database initialization.
+- Resolved the issue by correcting the placement of the
+  database initialization function in main.py.
+- Verified database insertion and retrieval through
+  terminal commands and Swagger UI.
+
+### Current Limitations
+
+- Updating a scan modifies only its displayed filename.
+- Deleting a scan does not remove the uploaded physical file.
+- - Cascade deletion was successfully verified.
+
+### Database Schema
+
+Refer to [Database Schema](docs/database_schema.md)
+for the entity relationship diagram and table structure.

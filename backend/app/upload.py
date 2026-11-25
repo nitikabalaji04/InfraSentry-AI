@@ -2,6 +2,7 @@ from fastapi import APIRouter, UploadFile, File, HTTPException
 from pathlib import Path
 from uuid import uuid4
 from .scanner import scan_dockerfile, scan_terraform
+from .database import save_scan
 
 router = APIRouter()
 
@@ -86,8 +87,23 @@ async def upload_config(file: UploadFile = File(...)):
     else:
         findings = scan_terraform(content)
 
+    # Determine the file type
+    file_type = (
+        "Dockerfile"
+        if clean_filename.lower() == "dockerfile"
+        else "Terraform"
+    )
+
+    # Save scan results to the database
+    scan_id = save_scan(
+        clean_filename,
+        file_type,
+        findings
+    )
+
     # Return upload and security scan results
     return {
+        "scan_id": scan_id,
         "message": "File uploaded, validated, and scanned successfully!",
         "original_filename": clean_filename,
         "saved_filename": saved_filename,
