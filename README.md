@@ -225,3 +225,76 @@ database server.
 
 Refer to [Database Schema](docs/database_schema.md)
 for the entity relationship diagram and table structure.
+
+## Phase 1 - Day 10: Backend Development and API Integration
+
+### Objective
+Develop and integrate backend APIs to retrieve and analyze
+security scan data stored in the SQLite database.
+
+### Implemented Features
+- Developed a dedicated security analytics module.
+- Integrated analytics endpoints with the FastAPI backend.
+- Implemented SQL aggregation for overall security statistics.
+- Implemented file-type-based analytics.
+- Added severity-based filtering of security findings.
+- Implemented input validation and error handling.
+- Restored the backend health check endpoint.
+
+### New API Endpoints
+
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| GET | /health | Check backend health |
+| GET | /api/analytics/summary | Retrieve overall security statistics |
+| GET | /api/analytics/file-types | Retrieve file-type-wise statistics |
+| GET | /api/analytics/findings | Retrieve and filter security findings |
+
+### Backend and Database Integration
+The analytics module uses the existing SQLite database
+connection to retrieve scan records and security findings.
+SQL aggregation, grouping, joins and parameterized queries
+are used to process stored data and return structured
+JSON responses.
+
+### API Testing
+
+| Test Case | Expected Status | Result |
+|-----------|-----------------|--------|
+| Overall security summary | 200 OK | Passed |
+| File-type analytics | 200 OK | Passed |
+| HIGH severity filtering | 200 OK | Passed |
+| Invalid LOW severity | 400 Bad Request | Passed |
+
+All tests were performed using FastAPI Swagger UI.
+
+### Challenges and Solutions
+- Avoiding duplication of existing CRUD functionality:
+  Created a separate analytics module.
+- Handling empty database statistics:
+  Used SQL COALESCE to return zero instead of null.
+- Handling invalid severity values:
+  Implemented input validation with meaningful HTTP
+  error responses.
+- Maintaining existing functionality:
+  Registered the new analytics router without changing
+  the database schema.
+
+### Technologies Used
+- Python
+- FastAPI
+- SQLite
+- SQL
+- Swagger UI
+- Git and GitHub
+
+### Outcome
+Successfully implemented database-driven security
+analytics APIs that provide structured information
+for future frontend dashboard integration.
+
+### Future Improvements
+- Interactive security analytics dashboard.
+- Risk scoring and visualization.
+- Scan trends over time.
+- AI-generated security recommendations.
