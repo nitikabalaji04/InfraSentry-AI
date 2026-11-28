@@ -391,3 +391,79 @@ API Documentation: http://127.0.0.1:8000/docs
 Successfully integrated the frontend, backend and database into a functional infrastructure security scanning application. The application supports configuration file analysis, security report visualization and scan record management through a unified dashboard.
 
 The current security scanner uses preliminary rule-based detection and does not guarantee that a configuration is completely secure.
+
+## Phase 1 – Day 12: Testing and Debugging
+
+### Implemented Features
+
+- Automated scanner unit testing using Pytest.
+- Backend API testing using FastAPI TestClient.
+- Database CRUD operation testing.
+- File upload and input validation testing.
+- Security analytics and severity filtering testing.
+- Isolated testing using a temporary SQLite database and upload directory.
+- Regression testing after dependency warning resolution.
+
+### Testing Results
+
+| Testing Category | Total | Passed | Failed |
+|---|---:|---:|---:|
+| Scanner Unit Testing | 8 | 8 | 0 |
+| API and Database Testing | 18 | 18 | 0 |
+| Final Regression Testing | 26 | 26 | 0 |
+
+- Total unique test cases: 26
+- Success rate: 100%
+- Final execution time: 2.14 seconds
+- Final warnings: 0
+
+### Issues Identified and Resolved
+
+A Starlette deprecation warning was encountered during API testing due to the deprecated HTTPX integration.
+
+The issue was addressed by installing the recommended httpx2 dependency. All 26 automated tests were subsequently executed again and passed without warnings.
+
+No application functionality bugs were identified within the executed test cases.
+
+### Running Automated Tests
+
+Install the required dependencies:
+
+```bash
+pip install -r requirements.txt
+```
+
+Run scanner unit tests:
+
+```bash
+python -m pytest tests/test_scanner.py -v
+```
+
+Run API and database tests:
+
+```bash
+python -m pytest tests/test_api.py -v
+```
+
+Run the complete test suite:
+
+```bash
+python -m pytest tests -v
+```
+
+### Testing Documentation
+
+The detailed testing report, including test scenarios, input data, expected results, actual results and test status, is available in:
+
+[Testing and Debugging Report](docs/testing-report.md)
+
+### Current Limitations
+
+- Frontend manual testing was not repeated on Day 12.
+- Automated browser testing is planned for future development.
+- Performance and load testing have not yet been performed.
+- Security detection is currently based on predefined rules.
+
+### Day 12 Outcome
+
+Successfully established an automated testing framework for InfraSentry AI and validated the implemented backend, database, security scanner and analytics functionalities with 26 passing test cases.
